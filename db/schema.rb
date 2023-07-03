@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_01_233115) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_03_223041) do
+  create_table "donations", force: :cascade do |t|
+    t.decimal "amount"
+    t.integer "payment_method"
+    t.string "email"
+    t.text "user_agent"
+    t.string "ip_address"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_donations_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
@@ -19,4 +31,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_01_233115) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "donations", "users"
 end
