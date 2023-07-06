@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :users, only: %i[show create update destroy]
       resources :tokens, only: [:create]
       resources :donations, only: %i[create update destroy]
+      get 'donations/by_period', to: 'donations#by_period'
     end
   end
 end

@@ -58,4 +58,15 @@ class Api::V1::DonationsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :forbidden
   end
+
+  test 'should get donations by period' do
+    start_date = Date.today - 7.days
+    end_date = Date.today
+    donations = Donation.where(created_at: start_date..end_date)
+
+    get api_v1_donations_by_period_url(start_date: start_date, end_date: end_date), as: :json
+
+    assert_response :success
+    assert_equal donations.to_json, response.body
+  end
 end

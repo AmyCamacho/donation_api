@@ -28,6 +28,12 @@ module Api
         head 204
       end
 
+      def by_period
+        start_date = params[:start_date]
+        end_date = params[:end_date]
+        donations = Donation.where(created_at: start_date..end_date)
+        render json: donations
+      end
 
       private
 
